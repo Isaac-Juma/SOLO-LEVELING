@@ -4,8 +4,8 @@
  * @returns {string} Formatted number
  */
 export const formatNumber = (num) => {
-  return num.toLocaleString()
-}
+  return num.toLocaleString();
+};
 
 /**
  * Calculates the percentage of progress
@@ -14,9 +14,9 @@ export const formatNumber = (num) => {
  * @returns {number} Percentage (0-100)
  */
 export const calculateProgress = (current, total) => {
-  if (total === 0) return 0
-  return Math.round((current / total) * 100)
-}
+  if (total === 0) return 0;
+  return Math.round((current / total) * 100);
+};
 
 /**
  * Debounce function for performance optimization
@@ -25,12 +25,12 @@ export const calculateProgress = (current, total) => {
  * @returns {Function} Debounced function
  */
 export const debounce = (fn, delay = 300) => {
-  let timeoutId
+  let timeoutId;
   return (...args) => {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => fn(...args), delay)
-  }
-}
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+};
 
 /**
  * Validate if a value is within a range
@@ -40,5 +40,5 @@ export const debounce = (fn, delay = 300) => {
  * @returns {boolean} Is value within range
  */
 export const isInRange = (value, min, max) => {
-  return value >= min && value <= max
-}
+  return value >= min && value <= max;
+};

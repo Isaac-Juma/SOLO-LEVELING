@@ -1,13 +1,17 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
 
 export default defineConfig({
   base: '/',
-  plugins: [
-    tailwindcss(),
-    vue()
-  ],
+  plugins: [tailwindcss(), vue()],
+  
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 
   server: {
     port: 5173,
@@ -18,13 +22,13 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-        rewrite: (path) => path
-      }
-    }
+        rewrite: (path) => path,
+      },
+    },
   },
 
   build: {
     target: 'esnext',
-    minify: 'esbuild'
-  }
-})
+    minify: 'esbuild',
+  },
+});
