@@ -1,20 +1,11 @@
 <template>
-  <div class="hidden bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-600">
+  <div
+    class="hidde bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-600 m-3 p-4"
+  >
     <h2 class="text-2xl font-bold text-white mb-6">Create New User</h2>
 
     <!-- Form -->
     <form @submit.prevent="handleSubmit" class="space-y-4">
-      <!--User Input Daily Goals-->
-      <div class="mb-4">
-        <label class="">Goals</label>
-        <input 
-          v-model="formData.UserGoals"
-          type="text"
-          placeholder="WHAT ARE YOUR GOALS"
-          class=""
-          required
-        />
-      </div>
       <!-- Username Input -->
       <div>
         <label class="block text-slate-300 text-sm font-bold mb-2">Username</label>
@@ -87,8 +78,12 @@
         >
           <p class="text-white font-semibold">{{ user.username }}</p>
           <p class="text-slate-400 text-sm">{{ user.email }}</p>
-          <p class="text-slate-400 text-sm">Level: {{ user.level }} | High Score: {{ user.highScore }}</p>
-          <p class="text-slate-500 text-xs mt-2">ID: <span class="font-mono">{{ user._id }}</span></p>
+          <p class="text-slate-400 text-sm">
+            Level: {{ user.level }} | High Score: {{ user.highScore }}
+          </p>
+          <p class="text-slate-500 text-xs mt-2">
+            ID: <span class="font-mono">{{ user._id }}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -96,77 +91,76 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { userService } from '../services/userService'
+  import { ref } from 'vue';
+  import { userService } from '../services/userService';
 
-const formData = ref({
-  UserGoals: '',
-  username: '',
-  email: '',
-  password: '',
-})
+  const formData = ref({
+    username: '',
+    email: '',
+    password: '',
 
-const isLoading = ref(false)
-const error = ref('')
-const success = ref(false)
-const successUserId = ref('')
-const users = ref([])
+  });
 
-const handleSubmit = async () => {
-  error.value = ''
-  success.value = false
-  isLoading.value = true
+  const isLoading = ref(false);
+  const error = ref('');
+  const success = ref(false);
+  const successUserId = ref('');
+  const users = ref([]);
 
-  try {
-    // Call API to create user
-    const response = await userService.createUser(formData.value)
+  const handleSubmit = async () => {
+    error.value = '';
+    success.value = false;
+    isLoading.value = true;
 
-    if (response.success) {
-      // Success! Show message
-      successUserId.value = response.data._id
-      success.value = true
+    try {
+      // Call API to create user
+      const response = await userService.createUser(formData.value);
 
-      // Reset form
-      formData.value = {
-        UserGoals: '',
-        username: '',
-        email: '',
-        password: '',
+      if (response.success) {
+        // Success! Show message
+        successUserId.value = response.data._id;
+        success.value = true;
+
+        // Reset form
+        formData.value = {
+          username: '',
+          email: '',
+          password: '',
+        };
+
+        // Reload users list
+        loadUsers();
+
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          success.value = false;
+        }, 1000);
       }
-
-      // Reload users list
-      loadUsers()
-
-      // Clear success message after 3 seconds
-      setTimeout(() => {
-        success.value = false
-      }, 3000)
+    } catch (err) {
+      error.value = err.message || 'Failed to create user. Check console for details.';
+      console.error('Error creating user:', err);
+    } finally {
+      isLoading.value = false;
     }
-  } catch (err) {
-    error.value = err.message || 'Failed to create user. Check console for details.'
-    console.error('Error creating user:', err)
-  } finally {
-    isLoading.value = false
-  }
-}
+  };
 
-const loadUsers = async () => {
-  try {
-    const response = await userService.getAllUsers()
-    if (response.success) {
-      users.value = response.data
+  const loadUsers = async () => {
+    try {
+      const response = await userService.getAllUsers();
+      if (response.success) {
+        users.value = response.data;
+      }
+    } catch (err) {
+      console.error('Error loading users:', err);
     }
-  } catch (err) {
-    console.error('Error loading users:', err)
-  }
-}
+  };
 
-// Load users on mount
-loadUsers()
+  // Load users on mount
+  loadUsers();
 </script>
 
 <style scoped>
-input:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
+  input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
 </style>

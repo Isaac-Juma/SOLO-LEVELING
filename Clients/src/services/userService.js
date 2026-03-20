@@ -1,3 +1,9 @@
+// API service for 
+// User-related operations: update goals, get level info, get leaderboard
+// When user updates goals, we also want to update their level and experience based on the new goals
+
+
+
 /**
  * User API Service
  * Centralized place for all user-related API calls
@@ -9,18 +15,44 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 // Helper function to handle API responses
 const handleResponse = async (response) => {
   const data = await response.json();
-  
+
   if (!response.ok) {
     throw new Error(data.message || `HTTP ${response.status}`);
   }
-  
+
   return data;
 };
 
 // Helper function to build query strings
 
 // Create API Requests for User Operations
+/**Create User Goals
+ * 
+ * 
+ * 
+ */
 export const userService = {
+  createUserGoals: async (userGoals) => {
+    const response = await fetch(`${API_BASE_URL}/usergoals`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(userGoals)
+    });
+    return handleResponse(response);
+  },
+
+  /**
+   * updateUserGoals 
+   */
+  updateUserGoals: async (userId, userGoals) => {
+    const response = await fetch(`${API_BASE_URL}/usergoals/${userId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(userGoals)
+    });
+    return handleResponse(response);
+  },
+
   /**
    * Create a new user
    * @param {Object} userData - { username, email, password }
@@ -42,8 +74,8 @@ export const userService = {
    */
   authenticatorUser: async (credentials) => {
     const response = await fetch(`${API_BASE_URL}/user/authenticate`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json'},
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),
     });
     return handleResponse(response);
@@ -59,6 +91,17 @@ export const userService = {
     });
     return handleResponse(response);
   },
+
+  /**
+   * Get userGoals for update
+   */
+  getUserGoals: async (userId) => {
+    const response = await fetch(`${API_BASE_URL}/usergoals/${userId}`, {
+      method: 'GET',
+    });
+    return handleResponse(response);
+  },
+
 
   /**
    * Get single user by ID
@@ -101,13 +144,8 @@ export const userService = {
 
   /**
    * Get leaderboard
-   * @param {number} limit - Number of top users (default 10)
-   * @returns {Promise}
    */
-  getLeaderboard: async (limit = 10) => {
-    const response = await fetch(`${API_BASE_URL}/users/leaderboard/top?limit=${limit}`, {
-      method: 'GET',
-    });
-    return handleResponse(response);
-  },
 };
+
+
+export default userService;

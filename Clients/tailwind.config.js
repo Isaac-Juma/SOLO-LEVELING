@@ -8,14 +8,14 @@ export default {
         danger: '#ef4444',
       },
       spacing: {
-        '128': '32rem',
-        '144': '36rem',
+        128: '32rem',
+        144: '36rem',
       },
       borderRadius: {
-        'xl': '1rem',
+        xl: '1rem',
         '2xl': '1.5rem',
       },
     },
   },
   plugins: [],
-}
+};

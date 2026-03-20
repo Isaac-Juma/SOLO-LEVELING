@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-600">
+  <div
+    class="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-600"
+  >
     <div class="space-y-6">
       <!-- Title -->
 
@@ -16,7 +18,6 @@
 
       <!-- Statistics -->
       <div class="grid gap-4">
-
         <!-- <div class="bg-slate-600/50 rounded-lg p-4 text-center border border-slate-500">
           <p class="text-slate-300 text-sm mb-1">Level</p>
           <p class="text-2xl font-bold text-green-400">{{ Math.floor(score / 10) }}</p>
@@ -50,7 +51,10 @@
       </div>
 
       <!-- Info Message -->
-      <div v-if="score > 0" class="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 text-center">
+      <div
+        v-if="score > 0"
+        class="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 text-center"
+      >
         <p class="text-blue-100 text-sm">
           Great progress! Keep going to reach level {{ Math.floor(score / 10) + 1 }}
         </p>
@@ -60,15 +64,14 @@
 </template>
 
 <script setup>
+  import { useScore } from '../composables/useScore';
 
-import { useScore } from '../composables/useScore'
-
-const { score, streak, addScore, resetScore } = useScore()
+  const { score, streak, addScore, resetScore } = useScore();
 </script>
 
 <style scoped>
-/* Smooth transitions */
-button {
-  will-change: transform;
-}
+  /* Smooth transitions */
+  button {
+    will-change: transform;
+  }
 </style>
