@@ -53,7 +53,7 @@
       </p>
       
       <p class="bg-red-500/90 rounded-lg m-2 p-2 text-center text-slate-300 text-bold text-xl py-2">
-        EXPERIENCE: {{ Experience }}
+        Experience: {{ Experience }}
       </p> 
 
     </div>
