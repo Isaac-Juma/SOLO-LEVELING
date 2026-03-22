@@ -2,8 +2,11 @@
   import { ref, onMounted } from 'vue';
   import ProfileImage from '@/assets/Profile.jpg';
 
-  // const UserProfile = ref(null);
-  const Name = ref('Isaac');
+
+  const UserProfile = async () => {
+  };
+  
+const Name = ref('Isaac')
   const UserPicture = ref(ProfileImage);
   const Position = ref(7);
   const Points = ref(6);
@@ -21,7 +24,7 @@
 </script>
 
 <template>
-  <div class="UserProfile flex flex-col items-center space-y-2 borrder-2 border p-4">
+  <div class="UserProfile flex flex-col items-center space-y-2 border-2 border p-4 m-4">
     
     <div class="grid grid-cols-2 grid-rows-3 gap-4 border ">
 

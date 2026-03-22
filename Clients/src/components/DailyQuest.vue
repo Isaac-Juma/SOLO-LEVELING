@@ -11,14 +11,14 @@
     <div class="flex justify-between">
       <div class="flex-grow:0 p-2 m-2">
         <!--when clicked opens a modal and user Decides -->
-        <button class="flex-grow:0 bg-blue-800 text-center m-2 p-4 rounded-2xl hover:bg-green-500"
+        <button class="flex-grow:0 text-main text-center m-2 p-4 rounded-2xl hover:bg-green-500"
           @click="toggleForm()">
           {{ isForm ? 'Close' : '+ New' }}
         </button>
       </div>
   
      <!--User Goals in a List -->
-      <div class="flex-1 rounded-2xl py-4 m-2 p-2">
+      <div class="bg-danger flex-1 rounded-2xl py-4 m-2 p-2">
         <button class="flex-grow:0 bg-blue-800 text-center m-2 p-4 rounded-2xl hover:bg-green-500"
           @click="toggleGoalsList()">
           {{ showGoals ? 'Close': 'All-Goals' }}
@@ -39,7 +39,7 @@
     <div class="flex flex-col gap-4 p-4">
     
       <!-- <div class="flex justify-between place-items-center m-2 p-2"> -->
-      <span v-if="currentItem" class="bg-green-600 text-4xl  m-4 p-4 rounded-2xl ">
+      <span v-if="currentItem" class="bg-primary text-4xl  m-4 p-4 rounded-2xl ">
         Goal : {{ currentItem.Name }}  <br>
         Time : {{ currentItem.Time }}
       </span>
@@ -57,7 +57,7 @@
           />
         </div>
 
-        <div>
+        <div class="@bg-primary">
           <label class="text-2xl m-4" for="Done">Done</label> <br>
           <input 
             @change="NextPage"
