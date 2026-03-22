@@ -1,6 +1,8 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import ProfileImage from '@/assets/Profile.jpg';
+  // I need to finish this by Today 
+  // The logic of fetching and display the user profile
 
 
   const UserProfile = async () => {
