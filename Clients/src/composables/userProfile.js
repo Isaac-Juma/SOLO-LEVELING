@@ -1,27 +1,12 @@
-class userProfile {
+import UserProfile from "../components/UserProfile.vue";
+import { Api_Axios } from "../services/userService";
 
-    constructor (Name, Status, Preview) {
-        this.Name = Name;
-        this.Status = Status;
-        this.Preview = Preview;  
-    };
-
-    display () {
-        console.log(`Hello ${this.Name}, Status: ${this.Status}, Preview: ${this.Preview}`)
-    };
-
-    Preview () {
-
-        try {
-            const secName = 'Juma';
-            return `Hello ${secName}`
-
+const userProfile = async () => {
+    const img = Api_Axios.get('/users', {
+        params: {
+            Id: 123,
+            level: 1
         }
-        catch(error) {
-            console.error('Error:', error)
-
-        }
-    };
-
-};
-
+    });
+    return img.pipe()
+}

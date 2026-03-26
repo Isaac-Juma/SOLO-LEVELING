@@ -1,3 +1,4 @@
+import axios from "axios";
 // API service for 
 // User-related operations: update goals, get level info, get leaderboard
 // When user updates goals, we also want to update their level and experience based on the new goals
@@ -11,6 +12,13 @@
 
 // Use /api during development (proxied), full URL in production
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
+export const Api_Axios = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    "Content-Type": "application/json"
+  }}
+);
 
 // Helper function to handle API responses
 const handleResponse = async (response) => {
@@ -100,6 +108,15 @@ export const userService = {
       method: 'GET',
     });
     return handleResponse(response);
+  },
+
+  dp : async (userId) => {
+    const response = await axios.get(`${API_BASE_URL}/User`, {
+      method: 'GET',
+      headers: {'Content-Type': 'Application/json'},
+
+    });
+    return handleResponse(response)
   },
 
 

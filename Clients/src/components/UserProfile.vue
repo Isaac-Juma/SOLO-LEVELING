@@ -1,11 +1,21 @@
 <script setup>
   import { ref, onMounted } from 'vue';
+  import userService from '../services/userService';
+  import axios from 'axios';
   import ProfileImage from '@/assets/Profile.jpg';
+  import { Api_Axios } from '../services/userService';
   // I need to finish this by Today 
   // The logic of fetching and display the user profile
 
 
   const UserProfile = async () => {
+    try {
+      const Dp = Api_Axios.get('/Users')
+      console.log(Dp)
+    } catch (error) {
+      console.error(error)
+    }
+
   };
   
 const Name = ref('Isaac')
@@ -18,7 +28,7 @@ const Name = ref('Isaac')
   onMounted(async () => {
     try {
       // Fetch user profile data from the server
-      const response = await axios.get('/api/Users/UserProfile');
+      const response = await axios.get('/api/Users');
       const data = response.data;
       Name.value = data.name;
     } catch (error) {}
