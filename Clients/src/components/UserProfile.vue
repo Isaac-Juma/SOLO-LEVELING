@@ -1,38 +1,13 @@
 <script setup>
-  import { ref, onMounted } from 'vue';
-  import userService from '../services/userService';
-  import axios from 'axios';
-  import ProfileImage from '@/assets/Profile.jpg';
-  import { Api_Axios } from '../services/userService';
+import { ref } from 'vue';
+
   // I need to finish this by Today 
   // The logic of fetching and display the user profile
-
-
-  const UserProfile = async () => {
-    try {
-      const Dp = Api_Axios.get('/Users')
-      console.log(Dp)
-    } catch (error) {
-      console.error(error)
-    }
-
-  };
-  
 const Name = ref('Isaac')
-  const UserPicture = ref(ProfileImage);
   const Position = ref(7);
   const Points = ref(6);
   const Level = ref(4);
   const Experience = ref(3);
-
-  onMounted(async () => {
-    try {
-      // Fetch user profile data from the server
-      const response = await axios.get('/api/Users');
-      const data = response.data;
-      Name.value = data.name;
-    } catch (error) {}
-  });
 </script>
 
 <template>
