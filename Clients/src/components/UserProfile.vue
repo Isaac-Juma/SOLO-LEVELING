@@ -1,13 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+  import { userProfile } from '../composables/userProfile';
 
-  // I need to finish this by Today 
-  // The logic of fetching and display the user profile
-const Name = ref('Isaac')
-  const Position = ref(7);
-  const Points = ref(6);
-  const Level = ref(4);
-  const Experience = ref(3);
+  const { userName, userPoints, userLevel, userExp, userPosition, userPicture } = userProfile;
 </script>
 
 <template>
@@ -16,36 +10,32 @@ const Name = ref('Isaac')
     <div class="grid grid-cols-2 grid-rows-3 gap-4 border ">
 
       <div class="col-span-2 place-items-center border-green-500 border">
-        <h3 class="text-white text-xl">{{ Name }}</h3>
-  
+        <p class="text-white text-xl">{{ userName }}</p>
           <img
-            :src="UserPicture"
+            :src="userPicture || '/default-profile.jpg'"
             alt="UserProfile"
             class="w-32 h-32 
             md:w-48 md:h-48 
             lg:w-62 lg:h-62 flex flex-col bg-slate-400/40  rounded-full"
           />
-
       </div>
-      
-      
-      <p class="bg-blue-500 text-bold text-center text-xl py-2 rounded-lg m-2 p-2 ">Position: {{ Position }}</p>
+
+      <p class="bg-blue-500 text-bold text-center text-xl py-2 rounded-lg m-2 p-2 ">Position: {{ userPosition }}</p>
       
       <p class="bg-green-500 rounded-lg text-center text-bold text-xl py-2 m-2 p-2">
-        Points: {{ Points }}
+        Points: {{ userPoints }}
       </p>
       
       <p class="bg-yellow-500 rounded-lg text- text-center m-2 p-2 text-bold">
-        Level : {{ Level }}
+        Level : {{ userLevel }}
         <button class="bg-blue-700 m-2 p-2 rounded-xl text-bold">
           My-Form
         </button>
       </p>
       
       <p class="bg-red-500/90 rounded-lg m-2 p-2 text-center text-slate-300 text-bold text-xl py-2">
-        Experience: {{ Experience }}
+        Experience: {{ userExp }}
       </p> 
-
     </div>
   </div>
 </template>

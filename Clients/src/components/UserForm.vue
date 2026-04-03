@@ -114,7 +114,7 @@
 
     try {
       // Call API to create user
-      const response = await userService.createUser(formData.value);
+      const response = await userService.registerUser(formData.value);
 
       if (response.success) {
         // Success! Show message

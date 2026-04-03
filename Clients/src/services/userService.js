@@ -1,9 +1,8 @@
 import axios from "axios";
+import { registerUser } from "../../../Server/src/controllers/userController";
 // API service for 
 // User-related operations: update goals, get level info, get leaderboard
 // When user updates goals, we also want to update their level and experience based on the new goals
-
-
 
 /**
  * User API Service
@@ -19,6 +18,15 @@ export const Api_Axios = axios.create({
     "Content-Type": "application/json"
   }}
 );
+
+// Add request interceptor to include auth token
+Api_Axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
 // Helper function to handle API responses
 const handleResponse = async (response) => {
@@ -66,7 +74,7 @@ export const userService = {
    * @param {Object} userData - { username, email, password }
    * @returns {Promise}
    */
-  createUser: async (userData) => {
+  registerUser: async (userData) => {
     const response = await fetch(`${API_BASE_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -80,7 +88,7 @@ export const userService = {
    * @param {Object} credentials - { email, password }
    * @returns {Promise}
    */
-  authenticatorUser: async (credentials) => {
+  authenticateUser: async (credentials) => {
     const response = await fetch(`${API_BASE_URL}/user/authenticate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -109,16 +117,6 @@ export const userService = {
     });
     return handleResponse(response);
   },
-
-  dp : async (userId) => {
-    const response = await axios.get(`${API_BASE_URL}/User`, {
-      method: 'GET',
-      headers: {'Content-Type': 'Application/json'},
-
-    });
-    return handleResponse(response)
-  },
-
 
   /**
    * Get single user by ID
@@ -158,11 +156,6 @@ export const userService = {
     });
     return handleResponse(response);
   },
-
-  /**
-   * Get leaderboard
-   */
 };
-
 
 export default userService;
